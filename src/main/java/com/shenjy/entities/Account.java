@@ -22,10 +22,10 @@ public class Account {
     @Id
     private String id;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String name;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String motto;
 
     @Field
