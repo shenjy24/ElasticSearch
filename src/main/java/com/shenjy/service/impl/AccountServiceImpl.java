@@ -66,12 +66,7 @@ public class AccountServiceImpl implements AccountService {
                 .withTypes("person")
                 .addAggregation(AggregationBuilders.sum("ageSum").field("age"))
                 .build();
-        Aggregations aggregations = esTemplate.query(searchQuery, new ResultsExtractor<Aggregations>() {
-            @Override
-            public Aggregations extract(SearchResponse response) {
-                return response.getAggregations();
-            }
-        });
+        Aggregations aggregations = esTemplate.query(searchQuery, response -> response.getAggregations());
 
         Sum ageSum = aggregations.get("ageSum");
         return ageSum.getValue();
