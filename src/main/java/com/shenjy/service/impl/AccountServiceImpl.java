@@ -10,9 +10,14 @@ import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.elasticsearch.search.aggregations.AggregationBuilders;
 import org.elasticsearch.search.aggregations.Aggregations;
 import org.elasticsearch.search.aggregations.metrics.sum.Sum;
+import org.elasticsearch.search.sort.SortBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.ResultsExtractor;
+import org.springframework.data.elasticsearch.core.aggregation.AggregatedPage;
 import org.springframework.data.elasticsearch.core.query.IndexQuery;
 import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
@@ -53,8 +58,15 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<Account> findAll(String content) {
-        SearchQuery searchQuery = new NativeSearchQueryBuilder().withQuery(queryStringQuery(content)).build();
-        return esTemplate.queryForList(searchQuery, Account.class);
+
+        Pageable pageable = PageRequest.of(0, 20);
+
+        SearchQuery searchQuery = new NativeSearchQueryBuilder()
+                .withQuery(queryStringQuery(content))
+                .withPageable(pageable).build();
+
+        Page<Account> page = esTemplate.queryForPage(searchQuery, Account.class);
+        return page.getContent();
     }
 
     @Override
