@@ -1,4 +1,4 @@
-package com.shenjy.controllers;
+package com.shenjy.controller;
 
 import com.shenjy.base.CodeStatus;
 import com.shenjy.base.JsonResult;

@@ -1,9 +1,9 @@
-package com.shenjy.configurations;
+package com.shenjy.config;
 
 import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
-import org.elasticsearch.common.transport.InetSocketTransportAddress;
+import org.elasticsearch.common.transport.TransportAddress;
 import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -40,7 +40,7 @@ public class EsConfig {
                 .build();
 
         TransportClient client = new PreBuiltTransportClient(settings);
-        client.addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(esHost), esPort));
+        client.addTransportAddress(new TransportAddress(InetAddress.getByName(esHost), esPort));
         return client;
     }
 

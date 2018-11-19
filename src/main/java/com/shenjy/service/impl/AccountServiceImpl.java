@@ -1,9 +1,9 @@
-package com.shenjy.services.impl;
+package com.shenjy.service.impl;
 
 import com.google.common.collect.Lists;
-import com.shenjy.entities.Account;
-import com.shenjy.repositories.EsRepository;
-import com.shenjy.services.AccountService;
+import com.shenjy.entity.Account;
+import com.shenjy.repository.EsRepository;
+import com.shenjy.service.AccountService;
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.action.search.SearchType;
 import org.elasticsearch.index.query.QueryStringQueryBuilder;
@@ -13,6 +13,8 @@ import org.elasticsearch.search.aggregations.metrics.sum.Sum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.core.ResultsExtractor;
+import org.springframework.data.elasticsearch.core.query.IndexQuery;
+import org.springframework.data.elasticsearch.core.query.IndexQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
 import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,6 @@ import org.springframework.stereotype.Service;
 import java.util.Iterator;
 import java.util.List;
 
-import static org.elasticsearch.index.query.QueryBuilders.matchQuery;
 import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
 import static org.elasticsearch.index.query.QueryBuilders.termQuery;
 
@@ -74,5 +75,13 @@ public class AccountServiceImpl implements AccountService {
 
         Sum ageSum = aggregations.get("ageSum");
         return ageSum.getValue();
+    }
+
+    @Override
+    public String saveAccount(String id, String name, String motto, Integer age) {
+        Account account = new Account(id, name, motto, age);
+        IndexQuery indexQuery = new IndexQueryBuilder()
+                .withId(id).withObject(account).build();
+        return esTemplate.index(indexQuery);
     }
 }

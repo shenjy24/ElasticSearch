@@ -1,6 +1,6 @@
-package com.shenjy.repositories;
+package com.shenjy.repository;
 
-import com.shenjy.entities.Account;
+import com.shenjy.entity.Account;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
 
 /**

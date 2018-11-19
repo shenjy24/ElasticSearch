@@ -1,7 +1,7 @@
-package com.shenjy.controllers;
+package com.shenjy.controller;
 
 import com.shenjy.base.JsonResult;
-import com.shenjy.services.AccountService;
+import com.shenjy.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,5 +30,10 @@ public class AccountController extends BaseController {
     @RequestMapping("/sumAge")
     public JsonResult sumAge(String content) {
         return success(accountService.sumAge(content));
+    }
+
+    @RequestMapping("/save")
+    public JsonResult save(String id, String name, String motto, Integer age) {
+        return success(accountService.saveAccount(id, name, motto, age));
     }
 }

@@ -1,6 +1,6 @@
-package com.shenjy.services;
+package com.shenjy.service;
 
-import com.shenjy.entities.Account;
+import com.shenjy.entity.Account;
 
 import java.util.List;
 
@@ -30,5 +30,15 @@ public interface AccountService {
      * @return
      */
     Double sumAge(String content);
+
+    /**
+     * 保存实体
+     * @param id
+     * @param name
+     * @param motto
+     * @param age
+     * @return
+     */
+    String saveAccount(String id, String name, String motto, Integer age);
 }
 
