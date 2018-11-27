@@ -4,7 +4,7 @@ import org.elasticsearch.client.Client;
 import org.elasticsearch.client.transport.TransportClient;
 import org.elasticsearch.common.settings.Settings;
 import org.elasticsearch.common.transport.TransportAddress;
-import org.elasticsearch.xpack.client.PreBuiltXPackTransportClient;
+import org.elasticsearch.transport.client.PreBuiltTransportClient;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -37,11 +37,9 @@ public class EsConfig {
     public Client client() throws Exception {
         Settings settings = Settings.builder()
                 .put("cluster.name", esClusterName)
-                .put("xpack.security.transport.ssl.enabled",false)
-                .put("xpack.security.user", "elastic:123456")
                 .build();
 
-        TransportClient client = new PreBuiltXPackTransportClient(settings);
+        TransportClient client = new PreBuiltTransportClient(settings);
         client.addTransportAddress(new TransportAddress(InetAddress.getByName(esHost), esPort));
         return client;
     }

@@ -16,7 +16,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document(indexName = "accounts", type = "person")
+@Document(indexName = "account", type = "person")
 public class Account {
 
     @Id
@@ -28,6 +28,6 @@ public class Account {
     @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String motto;
 
-    @Field
+    @Field(type = FieldType.Integer)
     private Integer age;
 }

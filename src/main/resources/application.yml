@@ -5,5 +5,5 @@ server:
 #es\u914D\u7F6E
 elasticsearch:
   clusterName: shenjy
-  host: localhost
+  host: shenjy.club
   port: 9300
